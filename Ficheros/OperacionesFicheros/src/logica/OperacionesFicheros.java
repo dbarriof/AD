@@ -118,4 +118,14 @@ public class OperacionesFicheros {
 
         return archivos;
     }
+    
+    public int crearDirectorios(File rutaOrigen, ArrayList<String> listaDirectorios){
+        int contadorDirectorios = 0;
+        
+        for(String str : listaDirectorios){
+            
+        }
+        
+    }
+
 }
