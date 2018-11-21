@@ -3,32 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jaxbpractica1;
+package Logica;
 
 import generated.ObjectFactory;
-import generated.PedidoType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 /**
  *
  * @author dbarriof
  */
-public class JaxbPractica1 {
-
+public class Logica {
+    
     /**
-     * @param args the command line arguments
-     * @throws javax.xml.bind.JAXBException
-     * @throws java.io.FileNotFoundException
+     * Metodo que realiza unmarshal de un fichero xml dentro de un contexto dado 
+     * @return JAXBElement
+     * @throws JAXBException 
      */
-    public static void main(String[] args) throws JAXBException, FileNotFoundException {
+    public JAXBElement unmarshalizar() throws JAXBException{
         JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        unmarshaller.unmarshal(new FileInputStream("albaran.xml"));
+        JAXBElement jaxbElement = (JAXBElement) unmarshaller.unmarshal(new File("albaran.xml"));
+        return jaxbElement;
     }
     
+    public void marshalizar(JAXBElement jaxbelement){
+        Marshaller m = .createMarshaller();
+    }
 }
