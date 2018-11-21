@@ -5,14 +5,15 @@
  */
 package jaxbpractica1;
 
-import generated.ObjectFactory;
+import Logica.Logica;
+import generated.Articulos;
 import generated.PedidoType;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import javax.xml.bind.JAXBContext;
+import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  *
@@ -22,13 +23,25 @@ public class JaxbPractica1 {
 
     /**
      * @param args the command line arguments
-     * @throws javax.xml.bind.JAXBException
-     * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws JAXBException, FileNotFoundException {
-        JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        unmarshaller.unmarshal(new FileInputStream("albaran.xml"));
+    public static void main(String[] args) {
+        try {
+            JAXBElement jabxelement = Logica.unmarshalizar();
+            PedidoType pedidoType = (PedidoType)jabxelement.getValue();
+            
+            Articulos.Articulo articulo = new Articulos.Articulo();
+            articulo.setCantidad(1);
+            articulo.setCodigo("Codigo-invented");
+            articulo.setComentario("Muy rico y bonito");
+            articulo.setNombreProducto("Patito de Goma");
+            articulo.setPrecio(new BigDecimal(1.5));
+            
+            Logica.aniadirArticulo(pedidoType, articulo);
+            
+            Logica.marshalizar(jabxelement);
+        } catch (JAXBException ex) {
+            Logger.getLogger(JaxbPractica1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
