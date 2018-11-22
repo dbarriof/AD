@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <pedido>
-    <facturarA>
-        <nombre> El Corte Ingles </nombre>
-        <calle>Uria 2 </calle>
-        <ciudad> Oviedo</ciudad>
-        <provincia> Asturias </provincia>
+    <facturarA pais="Brasil">
+        <nombre>Mi Tienda</nombre>
+        <calle>Calle 1</calle>
+        <ciudad>A Coru?a</ciudad>
+        <provincia>Curitiba</provincia>
+        <codigoPostal>15670</codigoPostal>
     </facturarA>
     <comentario>Lineas de pedido</comentario>
     <articulos>
