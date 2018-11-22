@@ -27,6 +27,7 @@
             <cantidad>1</cantidad>
             <precio>1.5</precio>
             <comentario>Muy rico y bonito</comentario>
+            <fechaEnvio>2018-11-22</fechaEnvio>
         </articulo>
     </articulos>
 </pedido>

@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
@@ -24,7 +26,7 @@ public class JaxbPractica1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         try {
             JAXBElement jabxelement = Logica.unmarshalizar();
             PedidoType pedidoType = (PedidoType)jabxelement.getValue();
@@ -35,6 +37,14 @@ public class JaxbPractica1 {
             articulo.setComentario("Muy rico y bonito");
             articulo.setNombreProducto("Patito de Goma");
             articulo.setPrecio(new BigDecimal(1.5));
+            try {
+                XMLGregorianCalendar fec = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+                fec.setYear(2018);
+                fec.setMonth(11);
+                fec.setDay(22);
+                articulo.setFechaEnvio(fec);
+            } catch (DatatypeConfigurationException ex) {
+            }
             
             Logica.aniadirArticulo(pedidoType, articulo);
             

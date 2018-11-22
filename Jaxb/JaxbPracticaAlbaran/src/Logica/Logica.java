@@ -5,13 +5,16 @@
  */
 package Logica;
 
+import ExcepcionesAlbaran.campoVacio;
+import ExcepcionesAlbaran.listaArticulosVacia;
 import generated.Articulos;
+import generated.Direccion;
 import generated.ObjectFactory;
 import generated.PedidoType;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -52,4 +55,54 @@ public class Logica {
         articulos.getArticulo().add(articulo);
     }
     
+    /**
+     * Metodo que permite modificar la direccion de facturacion y envio de un pedido
+     * @param pedidotype
+     * @param direccion
+     * @throws campoVacio 
+     */
+    public static void modificaDireccion(PedidoType pedidotype, Direccion direccion) throws campoVacio {
+        if(direccion.getCalle() == null || direccion.getCalle() == null || direccion.getCodigoPostal() == null || direccion.getNombre() == null || direccion.getPais() == null || direccion.getProvincia() == null){
+            throw new ExcepcionesAlbaran.campoVacio("No puede haber campos vacios");           
+        } else {
+            pedidotype.getFacturarA().setCalle(direccion.getCalle());            
+            pedidotype.getFacturarA().setCiudad(direccion.getCiudad());
+            pedidotype.getFacturarA().setCodigoPostal(direccion.getCodigoPostal());
+            pedidotype.getFacturarA().setNombre(direccion.getNombre());
+            pedidotype.getFacturarA().setPais(direccion.getPais());
+            pedidotype.getFacturarA().setProvincia(direccion.getProvincia());
+        }
+    }
+    
+    /**
+     * Metodo que devuelve el importe del total de articulos
+     * @param pedidoType
+     * @param articulo
+     * @return BigDecimal
+     * @throws listaArticulosVacia 
+     */
+    public static BigDecimal calcularImporte(PedidoType pedidoType) throws listaArticulosVacia{
+        BigDecimal total = new java.math.BigDecimal(0);
+        
+        Articulos articulos = pedidoType.getArticulos();
+        List<Articulos.Articulo> listaArticulos = articulos.getArticulo();
+            
+            if(listaArticulos.isEmpty()){
+                throw new ExcepcionesAlbaran.listaArticulosVacia("La lista de artículos está vacía");
+            } else {
+                
+               Iterator<Articulos.Articulo> it = listaArticulos.iterator();
+                            
+               while(it.hasNext()){
+                   total.add(it.next().getPrecio());
+               }
+            }
+            
+        return total;
+    }
+    
+    public static void eliminarArticulo(PedidoType pedidotype, String nombre) throws listaArticulosVacia{
+        
+    }
 }
+  
